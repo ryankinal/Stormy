@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				}, false);
 				
 				xhr.upload.addEventListener('load', function(e) {
-					
+					progressBar.className = 'complete';
 				}, false);
 				
 				xhr.onreadystatechange = function()

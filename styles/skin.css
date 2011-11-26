@@ -13,6 +13,7 @@ h2 { font-size: 1.7em; }
 h3 { font-size: 1.4em; }
 
 a { color: #D95818; }
+a:hover { color: #F00; }
 
 header, section, footer { padding: 10px; }
 
@@ -21,7 +22,7 @@ footer { text-align: center; }
 
 header h1 { font-size: 4em; text-transform: lowercase;  }
 header img { vertical-align: -.2em; }
-h1 a { color: #C7C7C7; text-decoration: none; }
+h1 a, h1 a:hover { color: #C7C7C7; text-decoration: none; }
 ul { list-style-type: circle; }
 
 .container { width: 80%; margin: 0 10%; }
@@ -56,3 +57,4 @@ nav a:hover { text-decoration: underline; }
 .upload div { overflow: hidden; text-overflow: ellipsis; }
 .progressBar { height: 5px; border: solid 1px #999; margin-top: 5px; }
 .progressBar div { height: 5px; width: 0%; background-color: #D95818; }
+.progressBar .complete { background-color: #0C0; }
