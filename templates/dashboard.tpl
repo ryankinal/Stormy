@@ -1,25 +1,20 @@
 <h2>Your Stuff &mdash; <span id="fileCount">{$filesCount|escape} file{if $filesCount != 1}s{/if}</span></h2>
 <div class="left three-quarters">
-	<table>
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Type</th>
-				<th>Size</th>
-				<th>Uploaded</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody id="files">
-			{foreach from=$files item=phile}
-				{include file="file-row.tpl" phile=$phile}
-			{foreachelse}
-				<tr id="nofiles">
-					<td colspan="5">No stuff! Upload some!</td>
-				</tr>
-			{/foreach}
-		</tbody>
-	</table>
+	<div class="file-row file-header">
+		<div class="left two-fifths file-name">Name</div>
+		<div class="left three-fifths">
+			<div class="left quarter">Type</div>
+			<div class="left quarter">Size</div>
+			<div class="left quarter">Uploaded</div>
+		</div>
+	</div>
+	<div id="files">
+		{foreach from=$files item=phile}
+			{include file="file-row.tpl" phile=$phile}
+		{foreachelse}
+			<div>No stuff! Upload some!</div>
+		{/foreach}
+	</div>
 	<input type="hidden" id="token" value="{$token}" />
 </div>
 <div class="left quarter">

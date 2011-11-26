@@ -30,7 +30,12 @@ ul { list-style-type: circle; }
 
 table { text-align: left; border-collapse: collapse; width: 100%; margin: 1em 0; }
 th { color: #AAA; }
-th, td { padding: 5px 10px; border-bottom: solid 1px #000; }
+ta { padding: 5px 10px; border-bottom: solid 1px #000; overflow: hidden; }
+
+.file-header { color: #AAA; font-weight: bold; }
+.file-row { border-bottom: solid 1px #000; overflow: hidden; padding: 5px 0; }
+.file-row div { text-align: center; }
+.file-row .file-name { white-space: nowrap; text-overflow: ellipsis; overflow: hidden; text-align: left; }
 
 dl { margin: 10px 0; padding: 0; }
 dt { float: left; clear: left; width: 6em; }

@@ -1,16 +1,41 @@
 document.addEventListener('DOMContentLoaded', function() {
-	var noFiles = document.getElementById('nofiles'),
+	var WEB_ROOT = '/stor.me',
+		noFiles = document.getElementById('nofiles'),
+		fileSize = function(size, truncate)
+		{
+			truncate = truncate || 1;
+			
+			var sz = ['B','K','M','G','T','P'],
+				factor = Math.floor((size.toString().length - 1) / 3),
+				divisor = Math.pow(1024, factor),
+				str = '' + (size / divisor);
+				
+			return str.substring(0, str.indexOf('.') + truncate + 1) + sz[factor];
+		},
+		fileType = function(type)
+		{
+			var conversions = {
+				'octet-stream': 'binary'
+			};
+			
+			type = type.substring(type.indexOf('/') + 1);
+			
+			return (conversions[type]) ? conversions[type] : type;
+		},
 		addRow = function(file)
 		{
 			var files = document.getElementById('files'),
-				row = document.createElement('tr'),
-				nameCell = document.createElement('td'),
+				row = document.createElement('div'),
 				downloadLink = document.createElement('a'),
-				typeCell = document.createElement('td'),
-				sizeCell = document.createElement('td'),
-				uploadedCell = document.createElement('td'),
-				controlsCell = document.createElement('td'),
-				delButton = document.createElement('a');
+				nameCell = document.createElement('div'),
+				statsCell = document.createElement('div'),
+				typeCell = document.createElement('div'),
+				sizeCell = document.createElement('div'),
+				uploadedCell = document.createElement('div'),
+				controlsCell = document.createElement('div'),
+				delButton = document.createElement('a'),
+				date = new Date(file.created),
+				datestring = date.format('m/d/yy');
 				
 			if (noFiles && noFiles.parentNode)
 			{
@@ -22,23 +47,33 @@ document.addEventListener('DOMContentLoaded', function() {
 			delButton.href = '#delete';
 			delButton.appendChild(document.createTextNode('delete'));
 			controlsCell.appendChild(delButton);
-			uploadedCell.appendChild(document.createTextNode(file.created));
-			sizeCell.appendChild(document.createTextNode(file.size));
-			typeCell.appendChild(document.createTextNode(file.mime_type));
+			
+			uploadedCell.appendChild(document.createTextNode(dateString));
+			sizeCell.appendChild(document.createTextNode(fileSize(file.size)));
+			typeCell.appendChild(document.createTextNode(fileType(file.mime_type)));
 			downloadLink.appendChild(document.createTextNode(file.name));
-			downloadLink.href = '/stor.me/files/download/?id=' + encodeURIComponent(file.file_id);
+			downloadLink.href = WEB_ROOT + '/files/download/?id=' + encodeURIComponent(file.file_id);
 			nameCell.appendChild(downloadLink);
 			
+			controlsCell.className = 'left quarter';
+			uploadedCell.className = 'left quarter';
+			sizeCell.className = 'left quarter';
+			typeCell.className = 'left quarter';
+			statsCell.className = 'left three-fifths file-stats';
+			nameCell.className = 'left two-fifths file-name';
+			
+			statsCell.appendChild(typeCell);
+			statsCell.appendChild(sizeCell);
+			statsCell.appendChild(uploadedCell);
+			statsCell.appendChild(controlsCell);
+			
 			row.appendChild(nameCell);
-			row.appendChild(typeCell);
-			row.appendChild(sizeCell);
-			row.appendChild(uploadedCell);
-			row.appendChild(controlsCell);
+			row.appendChild(statsCell);
 			row.id = 'file-' + file.file_id;
-			row.className = 'updated';
+			row.className = 'file-row clear updated';
 			
 			setTimeout(function() {
-				row.className = 'row';
+				row.className = 'file-row clear';
 			}, 5000);
 			
 			files.insertBefore(row, files.firstChild);
@@ -50,11 +85,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			var row = document.getElementById('file-' + updated.file_id),
 				files = document.getElementById('files');
 			
-			row.className ='updated';
+			row.className ='file-row clear updated';
 			files.insertBefore(row, files.firstChild);
 				
 			setTimeout(function() {
-				row.className = 'row';
+				row.className = 'file-row clear';
 			}, 3000);
 		},
 		showError = function(error)
