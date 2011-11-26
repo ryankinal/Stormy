@@ -1,0 +1,32 @@
+<?php
+/**
+ * Smarty plugin
+ * @package Smarty
+ * @subpackage plugins
+ */
+
+
+/**
+ * Smarty lower modifier plugin
+ *
+ * Type:     modifier<br>
+ * Name:     lower<br>
+ * Purpose:  convert string to lowercase
+ * @link http://smarty.php.net/manual/en/language.modifier.lower.php
+ *          lower (Smarty online manual)
+ * @author   Monte Ohrt <monte at ohrt dot com>
+ * @param string
+ * @return string
+ */
+function smarty_modifier_filetype($string)
+{
+	$conversions = array(
+		'octet-stream' => 'binary'
+	);
+	
+	$string = substr($string, strpos($string, '/') + 1);
+	
+	return isset($conversions[$string]) ? $conversions[$string] : $string;
+}
+
+?>
