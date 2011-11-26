@@ -25,7 +25,7 @@
 				{$content}
 			</section>
 			<footer class="clear">
-				&copy; store.me 2011
+				&copy; store.me 2011 &mdash; <a href="{#WEB_ROOT#}/about">about</a>
 			</footer>
 		</div>
 	</body>

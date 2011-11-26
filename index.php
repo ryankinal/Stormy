@@ -186,8 +186,6 @@ if ($path)
 						else
 						{
 							header('Content-Type: text/plain');
-							print_r($file->getAttributes());
-							print_r($file->getError());
 						}
 					}
 					
@@ -314,8 +312,6 @@ if ($path)
 					}
 					else
 					{
-						print_r($user->getError());
-						print_r($user->getAttributes());
 						$renderer->addContent('login.tpl', array('user' => $user, 'error' => 'Uh-oh. Was that the right password? Do you have an account?'));
 					}
 				}

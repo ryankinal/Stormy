@@ -1,4 +1,4 @@
-<h2>Your Stuff</h2>
+<h2>Your Stuff &mdash; <span id="fileCount">{$filesCount|escape} file{if $filesCount != 1}s{/if}</span></h2>
 <div class="left three-quarters">
 	<table>
 		<thead>

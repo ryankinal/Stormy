@@ -66,9 +66,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		},
 		updateFileCount = function(count)
 		{
-			var elem = document.getElementById('fileCount');
+			var elem = document.getElementById('fileCount'),
+				text = count + ' file' + ((count === 1) ? '' : 's');
 			elem.removeChild(elem.firstChild);
-			elem.appendChild(document.createTextNode(count));
+			elem.appendChild(document.createTextNode(text));
 		},
 		progress = {
 			start: function(file)
@@ -101,6 +102,18 @@ document.addEventListener('DOMContentLoaded', function() {
 				
 				xhr.upload.addEventListener('load', function(e) {
 					progressBar.className = 'complete';
+					var parent = self.elem.parentNode;
+					
+					setTimeout(function() {
+						parent.removeChild(self.elem);
+						
+						var files = parent.getElementsByTagName('div');
+						
+						if (files.length === 0)
+						{
+							parent.style.display = 'none';
+						}
+					}, 10000);
 				}, false);
 				
 				xhr.onreadystatechange = function()
