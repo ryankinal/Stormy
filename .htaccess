@@ -1,0 +1,12 @@
+php_value memory_limit 11G
+php_value upload_max_filesize 10G
+
+Options +Indexes
+RewriteEngine On
+RewriteBase /stor.me
+
+RewriteCond %{SCRIPT_FILENAME} !(scripts|images|styles)
+RewriteRule ^([\w\-]+)/([\w\-]+)(/|$) index.php?path=$1&mod=$2 [NC,L,QSA]
+
+RewriteCond %{SCRIPT_FILENAME} !(scripts|images|styles)
+RewriteRule ^([\w\-]+)(/|$) index.php?path=$1 [NC,L,QSA]
