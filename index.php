@@ -182,10 +182,7 @@ if ($path)
 							header('Content-Transfer-Encodeing: binary');
 							
 							readfile($file->getAttribute('location'));
-						}
-						else
-						{
-							header('Content-Type: text/plain');
+							exit();
 						}
 					}
 					

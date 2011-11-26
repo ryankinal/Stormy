@@ -23,7 +23,7 @@ class User extends DBRecord
 	
 	public function setPassword($p_password)
 	{
-		$this->attributes['password'] = sha1(self::SALT.sha1($p_password.self::SALT));
+		$this->setAttribute('password', sha1(self::SALT.sha1($p_password.self::SALT)));
 	}
 	
 	public function login()
