@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 	
-		<title>{$title|escape}</title>
+		<title>{$title|escape} | stor.me</title>
 		<link rel="stylesheet" href="{#WEB_ROOT#}/styles/haGrid.css" />
 		<link rel="stylesheet" href="{#WEB_ROOT#}/styles/skin.css" />
 		{foreach from=$styles item=style}
