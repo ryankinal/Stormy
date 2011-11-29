@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				controlsCell = document.createElement('div'),
 				delButton = document.createElement('a'),
 				date = new Date(file.created),
-				datestring = date.format('m/d/yy');
+				dateString = (date.getUTCMonth() + 1) + '/' + date.getUTCDate() + '/' + (date.getUTCFullYear() - 2000);
 				
 			if (noFiles && noFiles.parentNode)
 			{
@@ -252,12 +252,10 @@ document.addEventListener('DOMContentLoaded', function() {
 						{
 							if (!noFiles)
 							{
-								noFiles = document.createElement('tr');
+								noFiles = document.createElement('div');
 								noFiles.id = 'nofiles';
-								cell = document.createElement('td');
-								cell.setAttribute('colspan', '5');
-								cell.appendChild(document.createTextNode('No stuff! Upload some!'));
-								noFiles.appendChild(cell);
+								noFiles.className = 'file-row clear';
+								noFiles.appendChild(document.createTextNode('No stuff! Upload some!'));
 							}
 							
 							parent.appendChild(noFiles);
