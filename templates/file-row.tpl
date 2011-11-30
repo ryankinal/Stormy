@@ -1,4 +1,4 @@
-<div class="file-row clear" id="file-{$phile->getAttribute('file_id')|escape}">
+<article class="file-row clear" id="file-{$phile->getAttribute('file_id')|escape}">
 	<div class="left two-fifths file-name">
 		<a href="{#WEB_ROOT#}/files/download/?id={$phile->getAttribute('file_id')}" rel="download">{$phile->getAttribute('name')|escape}</a>
 	</div>
@@ -10,4 +10,4 @@
 			<a href="#delete" class="delete" data-id="{$phile->getAttribute('file_id')|escape}">delete</a>
 		</div>
 	</div>
-</div>
+</article>

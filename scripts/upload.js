@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		addRow = function(file)
 		{
 			var files = document.getElementById('files'),
-				row = document.createElement('div'),
+				row = document.createElement('article'),
 				downloadLink = document.createElement('a'),
 				nameCell = document.createElement('div'),
 				statsCell = document.createElement('div'),
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 			files.insertBefore(row, files.firstChild);
 			
-			updateFileCount(files.getElementsByTagName('tr').length);
+			updateFileCount(files.getElementsByTagName('article').length);
 		},
 		showUpdated = function(updated)
 		{
@@ -246,13 +246,13 @@ document.addEventListener('DOMContentLoaded', function() {
 						row = document.getElementById('file-' + obj.deleted.file_id);
 						parent = row.parentNode;
 						parent.removeChild(row);
-						rowCount = parent.getElementsByTagName('tr').length;
+						rowCount = parent.getElementsByTagName('article').length;
 						updateFileCount(rowCount);
 						if (rowCount === 0)
 						{
 							if (!noFiles)
 							{
-								noFiles = document.createElement('div');
+								noFiles = document.createElement('article');
 								noFiles.id = 'nofiles';
 								noFiles.className = 'file-row clear';
 								noFiles.appendChild(document.createTextNode('No stuff! Upload some!'));
