@@ -94,10 +94,11 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         showError = function(error)
         {
-            
+            /** TODO **/
         },
         showSuccess = function(success)
         {
+            /** TODO **/
         },
         updateFileCount = function(count)
         {
