@@ -45,13 +45,13 @@ document.addEventListener('DOMContentLoaded', function() {
             delButton.className = 'delete';
             delButton.dataset['id'] = file.file_id;
             delButton.href = '#delete';
-            delButton.appendChild(document.createTextNode('delete'));
+            delButton.textContent = 'delete';
             controlsCell.appendChild(delButton);
             
-            uploadedCell.appendChild(document.createTextNode(dateString));
-            sizeCell.appendChild(document.createTextNode(fileSize(file.size)));
-            typeCell.appendChild(document.createTextNode(fileType(file.mime_type)));
-            downloadLink.appendChild(document.createTextNode(file.name));
+            uploadedCell.textContent = dateString;
+            sizeCell.textContent = fileSize(file.size);
+            typeCell.textContent = fileType(file.mime_type);
+            downloadLink.textContent = file.name;
             downloadLink.href = WEB_ROOT + '/files/download/?id=' + encodeURIComponent(file.file_id);
             nameCell.appendChild(downloadLink);
             
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var elem = document.getElementById('fileCount'),
                 text = count + ' file' + ((count === 1) ? '' : 's');
             elem.removeChild(elem.firstChild);
-            elem.appendChild(document.createTextNode(text));
+            elem.textContent = text;
         },
         progress = {
             start: function(file)
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
                 this.elem = document.createElement('div');
                 this.elem.className = 'upload';
-                nameElem.appendChild(document.createTextNode(file.name));
+                nameElem.textContent = file.name;
                 progressElem.appendChild(progressBar);
                 progressElem.className = 'progressBar';
                 progressBar.style.width = '0%';
@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 noFiles = document.createElement('article');
                                 noFiles.id = 'nofiles';
                                 noFiles.className = 'file-row clear';
-                                noFiles.appendChild(document.createTextNode('No stuff! Upload some!'));
+                                noFiles.textContent = 'No stuff! Upload some!';
                             }
                             
                             parent.appendChild(noFiles);

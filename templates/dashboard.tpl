@@ -12,7 +12,7 @@
         {foreach from=$files item=phile}
             {include file="file-row.tpl" phile=$phile}
         {foreachelse}
-            <div class="file-row clear">No stuff! Upload some!</div>
+            <div class="file-row clear" id="nofiles">No stuff! Upload some!</div>
         {/foreach}
     </div>
     <input type="hidden" id="token" value="{$token}" />
