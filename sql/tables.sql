@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS app_users;
 DROP TABLE IF EXISTS files;
+DROP TABLE IF EXISTS shares;
 
 CREATE TABLE app_users (
     user_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -18,4 +19,12 @@ CREATE TABLE files (
     size INT,
     _user_id INT NOT NULL,
     created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE shares (
+    share_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    _sharer_id INT NOT NULL,
+    _sharee_id INT NOT NULL,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    expires DATETIME
 );

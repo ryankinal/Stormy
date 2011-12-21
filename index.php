@@ -3,6 +3,7 @@ include_once('lib/config.php');
 include_once('lib/Renderer.php');
 include_once('classes/User.php');
 include_once('classes/Files.php');
+include_once('classes/Shares.php');
 
 $user = new User();
 
