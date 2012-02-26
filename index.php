@@ -4,6 +4,7 @@ include_once('lib/Renderer.php');
 include_once('classes/User.php');
 include_once('classes/Files.php');
 include_once('classes/Shares.php');
+include_once('classes/FileController.php');
 
 $user = new User();
 
@@ -85,122 +86,42 @@ if ($path)
                 $files = new Files();
                 $files->orderby('created DESC');
                 $files->getBy(array('_user_id' => $user->getAttribute('user_id')));
+                $controller = new FileController();
                 
                 if ($mod && $mod === 'json')
                 {
-                    header('Content-Type: application/json');
-                    echo $files->getJSON();
+                    $controller->json($user);
+                    exit();
+                }
+                else if ($mod && $mod === 'detail')
+                {
+                    $controller->detail($user);
+                    exit();
+                }
+                else if ($mod && $mod === 'share')
+                {
+                    $controller->share($user);
                     exit();
                 }
                 else if ($mod && $mod === 'delete')
                 {
-                    header('Content-Type: application/json');
-                    
-                    if ($token === $_SESSION['token'])
-                    {
-                        $id = isset($_POST['id']) ? $_POST['id'] : false;
-                        $file = new File(array(
-                            'file_id' => $id,
-                            '_user_id' => $user->getAttribute('user_id')
-                        ));
-                        
-                        if ($file->loadByAttributes())
-                        {
-                            if ($file->delete())
-                            {
-                                echo json_encode(array('deleted' => $file->getAttributes()));
-                                exit();
-                            }
-                        }
-                    }
-                    
-                    echo json_encode(array('error' => 'Could not delete that file'));
+                    $controller->delete($user);
                     exit();
                 }
                 else if ($mod && $mod === 'upload')
                 {
-                    if ($token === $_SESSION['token'])
-                    {
-                        $target = isset($_FILES['file']) ? $_FILES['file'] : false;
-                        
-                        if ($target)
-                        {
-                            $location = FILES_DIR.'/'.$user->getAttribute('user_id').'/'.$target['name'];
-                            
-                            if (move_uploaded_file($target['tmp_name'], $location))
-                            {
-                                $file = new File();
-                                $file->setAttribute('name', $target['name']);
-                                $file->setAttribute('location', $location);
-                                
-                                $test = $file->loadByAttributes();
-                                $file->setAttribute('mime_type', $target['type']);
-                                $file->setAttribute('size', $target['size']);
-                                $file->setAttribute('_user_id', $user->getAttribute('user_id'));
-                                $file->setAttribute('created', date('Y:m:d H:i:s'));
-                                
-                                if ($file->save())
-                                {
-                                    $file->loadByAttributes();
-                                    
-                                    if ($test)
-                                    {
-                                        
-                                        echo json_encode(array('updated' => $file->getAttributes()));
-                                    }
-                                    else
-                                    {
-                                        echo $file->getJSON();
-                                    }
-                                    exit();
-                                }
-                                else
-                                {
-                                    echo json_encode(array('error' => 'Your file was uploaded, but not saved to the database.'));
-                                    exit();
-                                }
-                            }
-                        }
-                    }
-                    
-                    echo json_encode(array('error' => 'There was a problem uploading your file'));
+                    $controller->upload($user);
                     exit();
                 }
                 else if ($mod && $mod === 'download')
                 {
-                    $id = isset($_GET['id']) ? $_GET['id'] : false;
-                    
-                    if ($id)
-                    {
-                        $file = new File(array('file_id' => $id, '_user_id' => $user->getAttribute('user_id')));
-                        
-                        if ($file->loadByAttributes())
-                        {
-                            header('Cache-Control: public');
-                            header('Content-Description: File Transfer');
-                            header('Content-Disposition: attachment; filename='.$file->getAttribute('name'));
-                            header('Content-Type: '.$file->getAttribute('mime_type'));
-                            header('Content-Transfer-Encodeing: binary');
-                            
-                            readfile($file->getAttribute('location'));
-                            exit();
-                        }
-                    }
-                    
-                    header('HTTP/1.0 404 Not Found');
+                    $controller->download($user);
                     exit();
                 }
                 else
                 {
-                    $renderer->setTitle('Your stuff');
-                    $renderer->setKeywords(array(
-                        'your',
-                        'stuff',
-                        'here'
-                    ));
-                    $renderer->addScript('scripts/upload.js');
-                    $renderer->addScript('scripts/json_parse.js');
-                    $renderer->addContent('dashboard.tpl', array('files' => $files->getElements(), 'token' => $_SESSION['token'], 'filesCount' => count($files->getElements())));
+                    $controller->index($user);
+                    exit();
                 }
                 break;
             case 'logout':
