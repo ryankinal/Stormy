@@ -7,7 +7,7 @@
                 <dd>{if $user}{$user->getAttribute('email')|escape}{/if}</dd>
 
                 <dt>Joined</dt>
-                <dd>{if $user}{$user->getAttribute('joined')|escape}{/if}</dd>
+                <dd>{if $user}{$user->getAttribute('joined')|date_format}{/if}</dd>
                 <dt>Files</dt>
                 <dd>{$filesCount|escape}</dd>
             </dl>
