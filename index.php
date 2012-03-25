@@ -37,7 +37,6 @@ if ($path)
 
                 $controller->index($user);
                 exit();
-                break;
             case 'files':
                 $controller = new FileController();
                 
@@ -77,16 +76,14 @@ if ($path)
 
                 $controller->index($user);
                 exit();
-
-                break;
             case 'logout':
                 $controller = new AccountController();
                 $controller->logout($user);
-                break;
+                exit();
             case 'about':
                 $controller = new ContentController();
                 $controller->about();
-                break;
+                exit();
             default:
                 header('Location: '.WEB_ROOT.'/files/');
                 exit();
@@ -99,16 +96,15 @@ if ($path)
             case 'signup':
                 $controller = new AccountController();
                 $controller->create();
-                break;
+                exit();
             case 'login':
                 $controller = new AccountController();
                 $controller->login();
-
-                break;
+                exit();
             case 'about':
                 $controller = new ContentController();
                 $controller->about();
-                break;
+                exit();
             default:
                 header('Location: '.WEB_ROOT.'/login');
                 exit();
