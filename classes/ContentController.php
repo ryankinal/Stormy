@@ -3,12 +3,13 @@ include_once('lib/Controller.php');
 
 class ContentController extends Controller
 {
+	protected $layout = 'layouts/overall.tpl';
+	protected $nav = 'nav/index.tpl';
+
 	public function index()
 	{
-		$renderer = new Renderer('layouts/overall.tpl');
-		$renderer->setNav('nav/index.tpl');
-		$renderer->setTitle('Put your stuff here');
-		$renderer->setKeywords(array(
+		$this->setTitle('Put your stuff here');
+		$this->setKeywords(array(
 			'store',
 			'files',
 			'upload',
@@ -16,17 +17,15 @@ class ContentController extends Controller
 			'fast',
 			'anywhere'
 		));
-		$renderer->setDescription('Easy, cloud-based storage for your stuff.');
-		$renderer->addContent('index.tpl');
-		$renderer->render();
+		$this->setDescription('Easy, cloud-based storage for your stuff.');
+		$this->addContent('index.tpl');
+		$this->view();
 	}
 
 	public function about()
 	{
-		$renderer = new Renderer('layouts/overall.tpl');
-		$renderer->setNav('nav/index.tpl');
-		$renderer->setTitle('Put your stuff here');
-		$renderer->setKeywords(array(
+		$this->setTitle('Put your stuff here');
+		$this->setKeywords(array(
 			'store',
 			'files',
 			'upload',
@@ -37,9 +36,9 @@ class ContentController extends Controller
             'licensing',
             'responsibility'
 		));
-		$renderer->setDescription('What is stor.me? Why should I use it? What happens when I do use it?');
-		$renderer->addContent('about.tpl');
-		$renderer->render();
+		$this->setDescription('What is stor.me? Why should I use it? What happens when I do use it?');
+		$this->addContent('about.tpl');
+		$this->view();
 	}
 }
 ?>

@@ -4,6 +4,9 @@ include_once('lib/Controller.php');
 
 class FileController extends Controller
 {
+    protected $layout = 'layouts/overall.tpl';
+    protected $nav = 'nav/dashboard.tpl';
+
     public function json($user)
     {
         header('Content-type: application/json');
@@ -116,22 +119,19 @@ class FileController extends Controller
         $files->orderBy('created DESC');
         $files->getBy(array('user_id' => $user->getAttribute('user_id')));
 
-        $renderer = new Renderer('layouts/overall.tpl');
-        $renderer->setTitle('Your Stuff');
-        $renderer->setKeywords(array(
+        $this->setTitle('Your Stuff');
+        $this->setKeywords(array(
             'your',
             'stuff',
             'here'
         ));
-        $renderer->setNav('nav/dashboard.tpl');
-        $renderer->addScript('scripts/upload.js');
-        $renderer->addScript('scripts/json_parse.js');
-        $renderer->addContent('dashboard.tpl', array(
+        $this->addScript('scripts/upload.js');
+        $this->addContent('dashboard.tpl', array(
             'files' => $files->getElements(),
             'token' => $_SESSION['token'],
             'filesCount' => count($files->getElements())
         ));
-        $renderer->render();
+        $this->view();
     }
 
     public function detail($user)
@@ -147,19 +147,17 @@ class FileController extends Controller
 
             if ($file->loadByAttributes())
             {
-                $renderer = new Renderer('layouts/overall.tpl');
-                $renderer->setTitle('File Detail: '.$file->getAttribute('file_name'));
-                $renderer->setKeywords(array(
+                $this->setTitle('File Detail: '.$file->getAttribute('file_name'));
+                $this->setKeywords(array(
                     'your',
                     'stuff',
                     'here'
                 ));
-                $renderer->setNav('nav/dashboard.tpl');
-                $renderer->addContent('file-detail.tpl', array(
+                $this->addContent('file-detail.tpl', array(
                     'phile' => $file,
                     'token' => $_SESSION['token']
                 ));
-                $renderer->render();
+                $this->view();
 
                 return true;
             }

@@ -4,23 +4,24 @@ include_once('lib/Controller.php');
 
 class AccountController extends Controller
 {
+	protected $layout = 'layouts/overall.tpl';
+	protected $nav = 'nav/dashboard.tpl';
+
 	public function index($user)
 	{
-		$renderer = new Renderer('layouts/overall.tpl');
-		$renderer->setNav('nav/dashboard.tpl');
-		$renderer->setTitle('Your info here');
-		$renderer->setKeywords(array(
+		$this->setTitle('Your info here');
+		$this->setKeywords(array(
 			'your',
 			'info',
 			'here'
 		));
-		$renderer->setDescription('Manage your accont');
-		$renderer->addContent('account.tpl', array(
+		$this->setDescription('Manage your accont');
+		$this->addContent('account.tpl', array(
 			'user' => $user,
 			'filesCount' => count($user->getFiles()),
 			'token' => $_SESSION['token']
 		));
-		$renderer->render();
+		$this->view();
 	}
 
 	public function login()
@@ -44,10 +45,9 @@ class AccountController extends Controller
 			}
 		}
 
-		$renderer = new Renderer('layouts/overall.tpl');
-		$renderer->setNav('nav/index.tpl');
-		$renderer->setTitle('Login');
-		$renderer->setKeywords(array(
+		$this->setNav('nav/index.tpl');
+		$this->setTitle('Login');
+		$this->setKeywords(array(
 			'store',
 			'files',
 			'upload',
@@ -55,13 +55,13 @@ class AccountController extends Controller
 			'fast',
 			'anywhere'
 		));
-		$renderer->setDescription('Sign up for easy file storage, right from your browser!');
-		$renderer->addcontent('login.tpl', array(
+		$this->setDescription('Sign up for easy file storage, right from your browser!');
+		$this->addcontent('login.tpl', array(
 			'user' => $user,
 			'error' => $error
 		));
 
-		$renderer->render();
+		$this->view();
 	}
 
 	public function logout($user)
@@ -112,10 +112,9 @@ class AccountController extends Controller
 			}
 		}
 
-		$renderer = new Renderer('layouts/overall.tpl');
-		$renderer->setNav('nav/index.tpl');
-		$renderer->setTitle('Create an account');
-		$renderer->setKeywords(array(
+		$this->setNav('nav/index.tpl');
+		$this->setTitle('Create an account');
+		$this->setKeywords(array(
 			'store',
 			'files',
 			'upload',
@@ -123,12 +122,12 @@ class AccountController extends Controller
 			'fast',
 			'anywhere'
 		));
-		$renderer->setDescription('Sign up for easy file storage, right from your browser!');
-		$renderer->addContent('signup.tpl', array(
+		$this->setDescription('Sign up for easy file storage, right from your browser!');
+		$this->addContent('signup.tpl', array(
 			'user' => $user,
 			'error' => $error
 		));
-		$renderer->render();
+		$this->view();
 	}
 
 	public function update($user)
@@ -165,23 +164,21 @@ class AccountController extends Controller
 			$passwordError = 'Invalid request';
 		}
 
-		$renderer = new Renderer('layouts/overall.tpl');
-		$renderer->setNav('nav/dashboard.tpl');
-		$renderer->setTitle('Your info here');
-		$renderer->setKeywords(array(
+		$this->setTitle('Your info here');
+		$this->setKeywords(array(
 			'your',
 			'info',
 			'here'
 		));
-		$renderer->setDescription('Manage your accont');
-		$renderer->addContent('account.tpl', array(
+		$this->setDescription('Manage your accont');
+		$this->addContent('account.tpl', array(
 			'user' => $user,
 			'filesCount' => count($user->getFiles()),
 			'passwordError' => $passwordError,
 			'token' => $_SESSION['token'],
 			'passwordMessage' => $passwordMessage
 		));
-		$renderer->render();
+		$this->view();
 	}
 
 	public function delete($user)
@@ -211,21 +208,20 @@ class AccountController extends Controller
 			$deleteError = 'Invalid request';
 		}
 
-		$renderer = new Renderer('layouts/overall.tpl');
-		$renderer->setTitle('Your info here');
-		$renderer->setKeywords(array(
+		$this->setTitle('Your info here');
+		$this->setKeywords(array(
 			'your',
 			'info',
 			'here'
 		));
-		$renderer->setDescription('Manage your account');
-		$renderer->addContent('account.tpl', array(
+		$this->setDescription('Manage your account');
+		$this->addContent('account.tpl', array(
 			'user' => $user,
 			'filesCount' => count($user->getFiles()),
 			'deleteError' => $deleteError,
 			'token' => $_SESSION['token']
 		));
-		$renderer->render();
+		$this->view();
 	}
 }
 ?>
