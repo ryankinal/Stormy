@@ -71,5 +71,11 @@ class User extends DBRecord
             return false;
         }
     }
+
+    public function getFiles()
+    {
+        $files = new Files();
+        return $files->getBy(array('_user_id' => $this->getAttribute('user_id')));
+    }
 }
 ?>

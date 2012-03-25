@@ -3,6 +3,9 @@
         <div class="shadowbox">
             <h2>Your information</h2>
             <dl>
+                <dt>Email</dt>
+                <dd>{if $user}{$user->getAttribute('email')|escape}{/if}</dd>
+
                 <dt>Joined</dt>
                 <dd>{if $user}{$user->getAttribute('joined')|escape}{/if}</dd>
                 <dt>Files</dt>
